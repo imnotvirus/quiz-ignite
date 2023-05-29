@@ -22,6 +22,8 @@ type Props = PressableProps & {
   type?: keyof typeof TYPE_COLORS;
 };
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
 export function Level({
   title,
   type = "EASY",
@@ -66,20 +68,21 @@ export function Level({
   }, [isChecked]);
 
   return (
-    <Pressable onPressIn={onPressIn} onPressOut={onPressOut} {...rest}>
-      <Animated.View
-        style={[
-          styles.container,
-          animatedContainerStyle,
-          {
-            borderColor: COLOR,
-          },
-        ]}
-      >
-        <Animated.Text style={[styles.title, animatedTextStyle]}>
-          {title}
-        </Animated.Text>
-      </Animated.View>
-    </Pressable>
+    <AnimatedPressable
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+      style={[
+        styles.container,
+        animatedContainerStyle,
+        {
+          borderColor: COLOR,
+        },
+      ]}
+      {...rest}
+    >
+      <Animated.Text style={[styles.title, animatedTextStyle]}>
+        {title}
+      </Animated.Text>
+    </AnimatedPressable>
   );
 }
